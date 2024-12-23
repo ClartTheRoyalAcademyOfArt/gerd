@@ -1,7 +1,8 @@
 import pygame
 import sys
 
-import Scripts.generateLevel
+from Scripts.GenerateLevel import *
+from Scripts.RenderLevel import *
 
 
 
@@ -47,6 +48,12 @@ class Game:
         }
 
 
+        # Generate the level
+        self.level_generator = GenerateLevel("small")
+        self.level = self.level_generator.fill_level()
+        self.renderer = RenderLevel(self, self.level)
+
+
 
     def main_game_loop(self):
 
@@ -57,11 +64,13 @@ class Game:
 
             self.dt = self.clock.tick(self.fps) / 1000.0 # Define Delta-Time
 
-            # Initial renders
             self.SCREEN.fill((20, 20, 20)) # Fill the first display layer with dark grey
 
+            self.renderer.render_level()
+
+
             # Make fps display go brrrrr
-            fps_text = pygame.font.Font(self.game_fonts["Awake"], 40).render(f"{round(self.clock.get_fps())}", True, (0, 100, 0))
+            fps_text = pygame.font.Font(self.game_fonts["Awake"], 40).render(f"{round(self.clock.get_fps())}", True, (0, 50, 0))
             self.SCREEN.blit(fps_text, (10, 10))
 
 

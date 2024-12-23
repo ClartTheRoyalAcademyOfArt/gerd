@@ -4,7 +4,7 @@ import random
 
 
 
-class generateLevel:
+class GenerateLevel:
 
     def __init__(self, level_scale:str):
 
@@ -32,6 +32,9 @@ class generateLevel:
         terrain_keys = list(self.terrain_types.keys())
 
 
-        grid = [random.choice(terrain_keys) for _ in range(grid_size) for _ in range(grid_size)]
+        grid = [
+            [self.terrain_types[random.choice(terrain_keys)] for _ in range(grid_size)]
+            for _ in range(grid_size)
+        ]
 
         return grid
